@@ -39,7 +39,8 @@ export default defineComponent({
         }
       }
     ])
-    const tableState = JSON.parse(localStorage.getItem('tableState') ?? '')
+    const tableStateToParse = localStorage.getItem('tableState')
+    const tableState = tableStateToParse ? JSON.parse(tableStateToParse) : {}
     const tableStore = useTableStore()
     const { users, loading, error } = storeToRefs(tableStore)
     const { getUsers, saveTableState } = tableStore
