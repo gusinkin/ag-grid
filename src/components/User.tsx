@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 import { useCurrentUserStore } from '@/stores/currentUser'
 
 export default defineComponent({
-  name: 'User',
+  name: 'UserComponent',
 
   components: {
     RouterLink

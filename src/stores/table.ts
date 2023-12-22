@@ -1,7 +1,7 @@
 import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { URL, mockData } from '@/models/data'
-import type { StateUpdatedEvent, GridState } from 'ag-grid-community'
+import type { StateUpdatedEvent,FilterChangedEvent, GridState } from 'ag-grid-community'
 import type { User } from '@/models/types'
 
 export const useTableStore = defineStore('table', () => {
@@ -17,6 +17,16 @@ export const useTableStore = defineStore('table', () => {
     localStorage.setItem('tableState', JSON.stringify(state))
   }
 
+  const handleFilterChanged = (event : FilterChangedEvent) => {
+    gridApi.value = event.api
+    const rowsNumber = gridApi.value.getDisplayedRowCount()
+    if (rowsNumber === 0) {
+      gridApi.value.showNoRowsOverlay()
+    } else {
+      gridApi.value.hideOverlay()
+    }
+  }
+
   const getUsers = async () => {
     if (users.value.length > 0) {
       return
@@ -25,10 +35,10 @@ export const useTableStore = defineStore('table', () => {
     loading.value = true
     error.value = ''
     try {
-      // const response = await fetch(URL)
-      // const models: User[] = await response.json()
-      // users.value = models
-      users.value = mockData
+      const response = await fetch(URL)
+      const models: User[] = await response.json()
+      users.value = models
+      // users.value = mockData
     } catch (e) {
       // @ts-ignore
       error.value = e.message
@@ -40,7 +50,9 @@ export const useTableStore = defineStore('table', () => {
     users,
     loading,
     error,
+    gridApi,
     getUsers,
-    saveTableState
+    saveTableState,
+    handleFilterChanged
   }
 })

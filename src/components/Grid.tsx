@@ -1,17 +1,20 @@
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onBeforeMount, onMounted, ref } from 'vue'
+import type {Ref} from 'vue'
 import { storeToRefs } from 'pinia'
 import { AgGridVue } from 'ag-grid-vue3'
 import { useTableStore } from '@/stores/table'
 import LinkCellRenderer from '@/components/LinkCellRenderer'
+import NoRowsStub from '@/components/NoRowsStub'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
 
 export default defineComponent({
-  name: 'Grid',
+  name: 'GridComponent',
 
   components: {
     AgGridVue,
-    LinkCellRenderer
+    LinkCellRenderer,
+    NoRowsStub
   },
 
   setup() {
@@ -42,18 +45,29 @@ export default defineComponent({
     const tableStateToParse = localStorage.getItem('tableState')
     const tableState = tableStateToParse ? JSON.parse(tableStateToParse) : {}
     const tableStore = useTableStore()
-    const { users, loading, error } = storeToRefs(tableStore)
-    const { getUsers, saveTableState } = tableStore
+    const { users, loading, error,gridApi } = storeToRefs(tableStore)
+    const { getUsers, saveTableState,handleFilterChanged } = tableStore
+
+    const noRowsOverlayComponent:Ref<any> = ref(null);
+
 
     onMounted(getUsers)
+    onBeforeMount(() => {
+
+      noRowsOverlayComponent.value = 'NoRowsStub';
+
+    });
+
     return {
       colDefs,
       tableState,
       users,
       loading,
       error,
+      gridApi,
       getUsers,
-      saveTableState
+      saveTableState,
+      handleFilterChanged
     }
   },
 
@@ -73,10 +87,12 @@ export default defineComponent({
             rowData={this.users}
             columnDefs={this.colDefs}
             pagination={true}
-            style="width: 100%; height: 800px"
+            style="width: 100%; height: 600px"
             class="ag-theme-quartz"
             onStateUpdated={this.saveTableState}
+            onFilterChanged={this.handleFilterChanged}
             initialState={this.tableState}
+            noRowsOverlayComponent={NoRowsStub}
           ></AgGridVue>
         )}
       </>

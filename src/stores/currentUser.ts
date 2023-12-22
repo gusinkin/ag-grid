@@ -9,17 +9,17 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
   const error = ref('')
 
   const getCurrentUser = async (id: number) => {
-    if (currentUser && id === currentUser.value?.id) {
+    if (currentUser.value != null && id === currentUser.value.id) {
       return
     }
 
     loading.value = true
     error.value = ''
     try {
-      // const response = await fetch(`${URL}/${id}`)
-      // const models: User = await response.json()
-      // currentUser.value = models
-      currentUser.value = mockData[id - 1]
+      const response = await fetch(`${URL}/${id}`)
+      const models: User = await response.json()
+      currentUser.value = models
+      // currentUser.value = mockData[id - 1]
     } catch (e) {
       // @ts-ignore
       error.value = e.message
