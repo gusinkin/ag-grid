@@ -2,6 +2,7 @@ import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { URL, mockData } from '@/models/data'
 import type { User } from '@/models/types'
+import { Api } from '@/api/server'
 
 export const useCurrentUserStore = defineStore('currentUser', () => {
   const currentUser: Ref<User | null> = ref(null)
@@ -15,15 +16,15 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
 
     loading.value = true
     error.value = ''
-    try {
-      const response = await fetch(`${URL}/${id}`)
-      const models: User = await response.json()
-      currentUser.value = models
-      // currentUser.value = mockData[id - 1]
-    } catch (e) {
-      // @ts-ignore
-      error.value = e.message
+    const { data, err } = await Api.get(id.toString())
+    if (data.value && Object.keys(data.value).length) {
+      currentUser.value = data.value
+    } else {
+      error.value = err.value
     }
+
+    // currentUser.value = mockData[id - 1]
+
     loading.value = false
   }
 

@@ -40,7 +40,7 @@ export default defineComponent({
           </>
         ) : (
           <>
-            {this.currentUser ? (
+            {this.currentUser && Object.keys(this.currentUser).length ? (
               <>
                 <p>{`name: ${this.currentUser.name}`}</p>
                 <p>{`email: ${this.currentUser.email}`}</p>

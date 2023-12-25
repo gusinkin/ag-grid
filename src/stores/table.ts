@@ -1,8 +1,9 @@
 import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { URL, mockData } from '@/models/data'
-import type { StateUpdatedEvent,FilterChangedEvent, GridState } from 'ag-grid-community'
+import type { StateUpdatedEvent, FilterChangedEvent, GridState } from 'ag-grid-community'
 import type { User } from '@/models/types'
+import { Api } from '@/api/server'
 
 export const useTableStore = defineStore('table', () => {
   const users: Ref<User[]> = ref([])
@@ -17,7 +18,7 @@ export const useTableStore = defineStore('table', () => {
     localStorage.setItem('tableState', JSON.stringify(state))
   }
 
-  const handleFilterChanged = (event : FilterChangedEvent) => {
+  const handleFilterChanged = (event: FilterChangedEvent) => {
     gridApi.value = event.api
     const rowsNumber = gridApi.value.getDisplayedRowCount()
     if (rowsNumber === 0) {
@@ -34,14 +35,11 @@ export const useTableStore = defineStore('table', () => {
 
     loading.value = true
     error.value = ''
-    try {
-      const response = await fetch(URL)
-      const models: User[] = await response.json()
-      users.value = models
-      // users.value = mockData
-    } catch (e) {
-      // @ts-ignore
-      error.value = e.message
+    const { data, err } = await Api.get('')
+    if (data.value?.length) {
+      users.value = data.value
+    } else {
+      error.value = err.value
     }
     loading.value = false
   }
