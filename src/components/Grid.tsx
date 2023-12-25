@@ -7,7 +7,7 @@ import LinkCellRenderer from '@/components/LinkCellRenderer'
 import NoRowsStub from '@/components/NoRowsStub'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
-import { keys, LS } from '@/api/localStorage'
+import { keys, CacheManager } from '@/api/cacheManager'
 
 export default defineComponent({
   name: 'GridComponent',
@@ -43,7 +43,7 @@ export default defineComponent({
         }
       }
     ])
-    const tableState = LS.load(keys.tableState)
+    const tableState = CacheManager.load(keys.tableState)
     const tableStore = useTableStore()
     const { users, loading, error, gridApi } = storeToRefs(tableStore)
     const { getUsers, saveTableState, handleFilterChanged } = tableStore

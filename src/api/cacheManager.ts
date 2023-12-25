@@ -2,7 +2,7 @@ export enum keys {
   tableState = 'tableState'
 }
 
-export class LS {
+export class CacheManager {
   constructor() {}
 
   static save(key: keys, data: any) {

@@ -4,7 +4,7 @@ import { mockData } from '@/models/data'
 import type { StateUpdatedEvent, FilterChangedEvent, GridState } from 'ag-grid-community'
 import type { User } from '@/models/types'
 import { Server } from '@/api/server'
-import { keys, LS } from '@/api/localStorage'
+import { keys, CacheManager } from '@/api/cacheManager'
 
 export const useTableStore = defineStore('table', () => {
   const users: Ref<User[]> = ref([])
@@ -16,7 +16,7 @@ export const useTableStore = defineStore('table', () => {
   const saveTableState = (event: StateUpdatedEvent) => {
     gridApi.value = event.api
     const state: GridState = gridApi.value.getState()
-    LS.save(keys.tableState, state)
+    CacheManager.save(keys.tableState, state)
   }
 
   const handleFilterChanged = (event: FilterChangedEvent) => {
