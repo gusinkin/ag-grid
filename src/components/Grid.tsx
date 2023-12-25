@@ -1,5 +1,5 @@
 import { defineComponent, onBeforeMount, onMounted, ref } from 'vue'
-import type {Ref} from 'vue'
+import type { Ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { AgGridVue } from 'ag-grid-vue3'
 import { useTableStore } from '@/stores/table'
@@ -7,6 +7,7 @@ import LinkCellRenderer from '@/components/LinkCellRenderer'
 import NoRowsStub from '@/components/NoRowsStub'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
+import { LS } from '@/api/localStorage'
 
 export default defineComponent({
   name: 'GridComponent',
@@ -42,21 +43,17 @@ export default defineComponent({
         }
       }
     ])
-    const tableStateToParse = localStorage.getItem('tableState')
-    const tableState = tableStateToParse ? JSON.parse(tableStateToParse) : {}
+    const tableState = LS.load('tableState')
     const tableStore = useTableStore()
-    const { users, loading, error,gridApi } = storeToRefs(tableStore)
-    const { getUsers, saveTableState,handleFilterChanged } = tableStore
+    const { users, loading, error, gridApi } = storeToRefs(tableStore)
+    const { getUsers, saveTableState, handleFilterChanged } = tableStore
 
-    const noRowsOverlayComponent:Ref<any> = ref(null);
-
+    const noRowsOverlayComponent: Ref<any> = ref(null)
 
     onMounted(getUsers)
     onBeforeMount(() => {
-
-      noRowsOverlayComponent.value = 'NoRowsStub';
-
-    });
+      noRowsOverlayComponent.value = 'NoRowsStub'
+    })
 
     return {
       colDefs,

@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-export class Api {
+export class Server {
   private static readonly BASE_URL = 'https://jsonplaceholder.typicode.com/users'
 
   constructor() {}
