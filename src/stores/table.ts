@@ -1,10 +1,10 @@
 import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import { URL, mockData } from '@/models/data'
+import { mockData } from '@/models/data'
 import type { StateUpdatedEvent, FilterChangedEvent, GridState } from 'ag-grid-community'
 import type { User } from '@/models/types'
 import { Server } from '@/api/server'
-import { LS } from '@/api/localStorage'
+import { keys, LS } from '@/api/localStorage'
 
 export const useTableStore = defineStore('table', () => {
   const users: Ref<User[]> = ref([])
@@ -16,7 +16,7 @@ export const useTableStore = defineStore('table', () => {
   const saveTableState = (event: StateUpdatedEvent) => {
     gridApi.value = event.api
     const state: GridState = gridApi.value.getState()
-    LS.save('tableState', state)
+    LS.save(keys.tableState, state)
   }
 
   const handleFilterChanged = (event: FilterChangedEvent) => {
@@ -42,6 +42,8 @@ export const useTableStore = defineStore('table', () => {
     } else {
       error.value = err.value
     }
+
+    // users.value = mockData
     loading.value = false
   }
 

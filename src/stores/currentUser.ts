@@ -1,6 +1,6 @@
 import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import { URL, mockData } from '@/models/data'
+import { mockData } from '@/models/data'
 import type { User } from '@/models/types'
 import { Server } from '@/api/server'
 
@@ -24,7 +24,6 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     }
 
     // currentUser.value = mockData[id - 1]
-
     loading.value = false
   }
 

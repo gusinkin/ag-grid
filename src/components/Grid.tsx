@@ -1,5 +1,5 @@
-import { defineComponent, onBeforeMount, onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
+import { defineComponent, onBeforeMount, onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { AgGridVue } from 'ag-grid-vue3'
 import { useTableStore } from '@/stores/table'
@@ -7,7 +7,7 @@ import LinkCellRenderer from '@/components/LinkCellRenderer'
 import NoRowsStub from '@/components/NoRowsStub'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
-import { LS } from '@/api/localStorage'
+import { keys, LS } from '@/api/localStorage'
 
 export default defineComponent({
   name: 'GridComponent',
@@ -43,7 +43,7 @@ export default defineComponent({
         }
       }
     ])
-    const tableState = LS.load('tableState')
+    const tableState = LS.load(keys.tableState)
     const tableStore = useTableStore()
     const { users, loading, error, gridApi } = storeToRefs(tableStore)
     const { getUsers, saveTableState, handleFilterChanged } = tableStore
