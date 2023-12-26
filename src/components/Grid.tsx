@@ -7,7 +7,7 @@ import LinkCellRenderer from '@/components/LinkCellRenderer'
 import NoRowsStub from '@/components/NoRowsStub'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
-import { keys, CacheManager } from '@/api/cacheManager'
+import { keys, CacheManager } from '@/shared/api/cacheManager'
 
 export default defineComponent({
   name: 'GridComponent',

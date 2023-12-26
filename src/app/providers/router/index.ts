@@ -6,17 +6,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/HomeView')
+      component: () => import('@/pages/Home')
     },
     {
       path: '/users/:id',
       name: 'user',
-      component: () => import('@/views/UserView')
+      component: () => import('@/pages/User')
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'notFound',
-      component: () => import('@/views/PageNotFoundView')
+      component: () => import('@/pages/PageNotFound')
     }
   ]
 })

@@ -2,7 +2,7 @@ import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { mockData } from '@/models/data'
 import type { User } from '@/models/types'
-import { Server } from '@/api/server'
+import { Server } from '@/shared/api/server'
 
 export const useCurrentUserStore = defineStore('currentUser', () => {
   const currentUser: Ref<User | null> = ref(null)

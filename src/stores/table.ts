@@ -3,8 +3,8 @@ import { defineStore } from 'pinia'
 import { mockData } from '@/models/data'
 import type { StateUpdatedEvent, FilterChangedEvent, GridState } from 'ag-grid-community'
 import type { User } from '@/models/types'
-import { Server } from '@/api/server'
-import { keys, CacheManager } from '@/api/cacheManager'
+import { Server } from '@/shared/api/server'
+import { keys, CacheManager } from '@/shared/api/cacheManager'
 
 export const useTableStore = defineStore('table', () => {
   const users: Ref<User[]> = ref([])
