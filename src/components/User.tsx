@@ -2,12 +2,17 @@ import { defineComponent, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useCurrentUserStore } from '@/stores/currentUser'
+import { localization } from '@/app/localization'
+import Error from '@/components/Error'
+import Loading from '@/components/Loading'
 
 export default defineComponent({
   name: 'UserComponent',
 
   components: {
-    RouterLink
+    RouterLink,
+    Loading,
+    Error
   },
 
   props: ['id'],
@@ -29,27 +34,27 @@ export default defineComponent({
   render() {
     return (
       <>
-        <RouterLink to={'/'}>назад к таблице</RouterLink>
-        <p>это юзер № {this.id}</p>
+        <RouterLink to={'/'}>{localization('goBackToTable')}</RouterLink>
+        <p>{`${localization('user')} № ${this.id}`}</p>
         {this.loading ? (
-          <p>loading...</p>
+          <Loading />
         ) : this.error ? (
           <>
-            <p>{this.error}</p>
-            <button onClick={this.getUser}>попробовать еще раз</button>
+            <Error text={this.error} />
+            <button onClick={this.getUser}>{localization('tryAgain')}</button>
           </>
         ) : (
           <>
             {this.currentUser && Object.keys(this.currentUser).length ? (
               <>
-                <p>{`name: ${this.currentUser.name}`}</p>
-                <p>{`email: ${this.currentUser.email}`}</p>
-                <p>{`website: ${this.currentUser.website}`}</p>
-                <p>{`company name: ${this.currentUser.company.name}`}</p>
-                <p>{`city: ${this.currentUser.address.city}`}</p>
+                <p>{`${localization('name')}: ${this.currentUser.name}`}</p>
+                <p>{`${localization('email')}: ${this.currentUser.email}`}</p>
+                <p>{`${localization('website')}: ${this.currentUser.website}`}</p>
+                <p>{`${localization('companyName')} : ${this.currentUser.company.name}`}</p>
+                <p>{`${localization('city')}: ${this.currentUser.address.city}`}</p>
               </>
             ) : (
-              <p>информация потерялась(</p>
+              <Error text={localization('infoNotLoaded')} />
             )}
           </>
         )}

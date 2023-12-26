@@ -8,6 +8,9 @@ import NoRowsStub from '@/components/NoRowsStub'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
 import { keys, CacheManager } from '@/shared/api/cacheManager'
+import { localization } from '@/app/localization'
+import Loading from '@/components/Loading'
+import Error from '@/components/Error'
 
 export default defineComponent({
   name: 'GridComponent',
@@ -22,24 +25,31 @@ export default defineComponent({
     const colDefs = ref([
       {
         field: 'id',
+        headerName: localization('id'),
         filter: true,
         floatingFilter: true
       },
       {
         field: 'name',
+        headerName: localization('name'),
         filter: true,
         floatingFilter: true,
         cellRenderer: LinkCellRenderer
       },
-      { field: 'phone', filter: true, floatingFilter: true },
+      {
+        field: 'phone',
+        headerName: localization('phone'),
+        filter: true,
+        floatingFilter: true
+      },
       {
         field: 'address.geo.lng',
-        headerName: 'Полушарие',
+        headerName: localization('hemisphere'),
         filter: true,
         floatingFilter: true,
         valueFormatter: (params: any) => {
           const lng = +params.value
-          return lng > 0 ? 'Восточное' : 'Западное'
+          return lng > 0 ? localization('eastern') : localization('western')
         }
       }
     ])
@@ -72,11 +82,11 @@ export default defineComponent({
     return (
       <>
         {this.loading ? (
-          <p>loading...</p>
+          <Loading />
         ) : this.error ? (
           <>
-            <p>{this.error}</p>
-            <button onClick={this.getUsers}>попробовать еще раз</button>
+            <Error />
+            <button onClick={this.getUsers}>{localization('tryAgain')}</button>
           </>
         ) : (
           <AgGridVue
