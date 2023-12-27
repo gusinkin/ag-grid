@@ -1,7 +1,7 @@
 import { defineComponent, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useCurrentUserStore } from '@/stores/currentUser'
+import { useCurrentUserStore } from '@/stores/currentUser/currentUser'
 import { localization } from '@/app/localization'
 import Error from '@/components/Error'
 import Loading from '@/components/Loading'

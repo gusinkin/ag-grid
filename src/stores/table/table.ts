@@ -14,6 +14,9 @@ export const useTableStore = defineStore('table', () => {
   const gridApi = ref()
 
   const saveTableState = (event: StateUpdatedEvent) => {
+    console.log('event', event)
+    console.log('gridApi', gridApi)
+    console.log('gridApi.value', gridApi.value)
     gridApi.value = event.api
     const state: GridState = gridApi.value.getState()
     CacheManager.save(keys.tableState, state)
@@ -35,15 +38,15 @@ export const useTableStore = defineStore('table', () => {
     }
 
     loading.value = true
-    error.value = ''
-    const { data, err } = await Server.get('')
-    if (data.value?.length) {
-      users.value = data.value
-    } else {
-      error.value = err.value
-    }
+    // error.value = ''
+    // const { data, err } = await Server.get('')
+    // if (data.value?.length) {
+    //   users.value = data.value
+    // } else {
+    //   error.value = err.value
+    // }
 
-    // users.value = mockData
+    users.value = mockData
     loading.value = false
   }
 
