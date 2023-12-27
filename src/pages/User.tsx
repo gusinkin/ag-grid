@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import User from '@/components/User'
+import User from '@/components/User/User'
 
 export default defineComponent({
   name: 'UserView',

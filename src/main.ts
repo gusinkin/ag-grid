@@ -1,4 +1,3 @@
-import '@/app/assets/main.css'
 import { appBuild } from '@/app'
 
 ;(async function () {

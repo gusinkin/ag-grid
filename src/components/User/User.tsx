@@ -5,6 +5,7 @@ import { useCurrentUserStore } from '@/stores/currentUser'
 import { localization } from '@/app/localization'
 import Error from '@/components/Error'
 import Loading from '@/components/Loading'
+import styles from './styles.module.scss'
 
 export default defineComponent({
   name: 'UserComponent',
@@ -47,8 +48,8 @@ export default defineComponent({
           <>
             {this.currentUser && Object.keys(this.currentUser).length ? (
               <>
-                <p>{`${localization('name')}: ${this.currentUser.name}`}</p>
-                <p>{`${localization('email')}: ${this.currentUser.email}`}</p>
+                <p class={styles.name}>{`${localization('name')}: ${this.currentUser.name}`}</p>
+                <p class={styles.email}>{`${localization('email')}: ${this.currentUser.email}`}</p>
                 <p>{`${localization('website')}: ${this.currentUser.website}`}</p>
                 <p>{`${localization('companyName')} : ${this.currentUser.company.name}`}</p>
                 <p>{`${localization('city')}: ${this.currentUser.address.city}`}</p>

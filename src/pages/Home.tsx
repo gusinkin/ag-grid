@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import Grid from '@/components/Grid'
+import Grid from '@/components/Grid/Grid'
 
 export default defineComponent({
   name: 'HomeView',

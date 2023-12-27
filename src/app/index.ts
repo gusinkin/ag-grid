@@ -3,7 +3,7 @@ import { createPinia } from 'pinia'
 import App from '@/app/App'
 import { localizationInit } from '@/app/localization'
 import router from '@/app/providers/router'
-import '@/app/assets/main.css'
+import '@/app/styles/index.scss'
 
 export async function appBuild() {
   const app = createApp(App)
