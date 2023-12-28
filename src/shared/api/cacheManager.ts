@@ -3,9 +3,10 @@ export enum keys {
 }
 
 export class CacheManager {
-  constructor() {}
+  constructor() {
+  }
 
-  static save(key: keys, data: any) {
+  static save(key: keys, data: unknown) {
     const value = JSON.stringify(data)
     localStorage.setItem(key, value)
   }

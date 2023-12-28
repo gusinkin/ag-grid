@@ -2,6 +2,7 @@ import type { Ref } from 'vue'
 import { defineComponent, onBeforeMount, onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { AgGridVue } from 'ag-grid-vue3'
+import type { ValueFormatterParams } from 'ag-grid-community'
 import { useTableStore } from '@/stores/table/table'
 import LinkCellRenderer from '@/components/LinkCellRenderer'
 import NoRowsStub from '@/components/NoRowsStub'
@@ -47,7 +48,7 @@ export default defineComponent({
         headerName: localization('hemisphere'),
         filter: true,
         floatingFilter: true,
-        valueFormatter: (params: any) => {
+        valueFormatter: (params: ValueFormatterParams) => {
           const lng = +params.value
           return lng > 0 ? localization('eastern') : localization('western')
         }
@@ -58,7 +59,7 @@ export default defineComponent({
     const { users, loading, error, gridApi } = storeToRefs(tableStore)
     const { getUsers, saveTableState, handleFilterChanged } = tableStore
 
-    const noRowsOverlayComponent: Ref<any> = ref(null)
+    const noRowsOverlayComponent: Ref<string | undefined> = ref()
 
     onMounted(getUsers)
     onBeforeMount(() => {
