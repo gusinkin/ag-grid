@@ -14,9 +14,6 @@ export const useTableStore = defineStore('table', () => {
   const gridApi = ref()
 
   const saveTableState = (event: StateUpdatedEvent) => {
-    console.log('event', event)
-    console.log('gridApi', gridApi)
-    console.log('gridApi.value', gridApi.value)
     gridApi.value = event.api
     const state: GridState = gridApi.value.getState()
     CacheManager.save(keys.tableState, state)
