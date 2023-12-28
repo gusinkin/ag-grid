@@ -35,15 +35,15 @@ export const useTableStore = defineStore('table', () => {
     }
 
     loading.value = true
-    // error.value = ''
-    // const { data, err } = await Server.get('')
-    // if (data.value?.length) {
-    //   users.value = data.value
-    // } else {
-    //   error.value = err.value
-    // }
+    error.value = ''
+    const { data, err } = await Server.get('')
+    if (data.value?.length) {
+      users.value = data.value
+    } else {
+      error.value = err.value
+    }
 
-    users.value = mockData
+    // users.value = mockData
     loading.value = false
   }
 

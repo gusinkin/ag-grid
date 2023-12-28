@@ -15,15 +15,15 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     }
 
     loading.value = true
-    // error.value = ''
-    // const { data, err } = await Server.get(id.toString())
-    // if (data.value && Object.keys(data.value).length) {
-    //   currentUser.value = data.value
-    // } else {
-    //   error.value = err.value
-    // }
+    error.value = ''
+    const { data, err } = await Server.get(id.toString())
+    if (data.value && Object.keys(data.value).length) {
+      currentUser.value = data.value
+    } else {
+      error.value = err.value
+    }
 
-    currentUser.value = mockData[id - 1]
+    // currentUser.value = mockData[id - 1]
     loading.value = false
   }
 
