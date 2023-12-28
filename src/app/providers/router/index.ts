@@ -11,7 +11,8 @@ const router = createRouter({
     {
       path: '/users/:id',
       name: 'user',
-      component: () => import('@/pages/User')
+      component: () => import('@/pages/User'),
+      props: true
     },
     {
       path: '/:pathMatch(.*)*',

@@ -9,14 +9,14 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
   const loading = ref(false)
   const error = ref('')
 
-  const getCurrentUser = async (id: number) => {
+  const getCurrentUser = async (id: string) => {
     if (currentUser.value != null && id === currentUser.value.id) {
       return
     }
 
     loading.value = true
     error.value = ''
-    const { data, err } = await Server.get(id.toString())
+    const { data, err } = await Server.get(id)
     if (data.value && Object.keys(data.value).length) {
       currentUser.value = data.value
     } else {

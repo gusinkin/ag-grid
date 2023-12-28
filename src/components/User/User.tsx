@@ -16,7 +16,12 @@ export default defineComponent({
     Error
   },
 
-  props: ['id'],
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
 
   setup(props) {
     const currentUserStore = useCurrentUserStore()

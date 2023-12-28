@@ -3,8 +3,14 @@ import User from '@/components/User/User'
 
 export default defineComponent({
   name: 'UserView',
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   render() {
-    const id = +this.$route.params.id
-    return <User id={id} />
+    if (!this.id) return null
+    return <User id={this.id} />
   }
 })
