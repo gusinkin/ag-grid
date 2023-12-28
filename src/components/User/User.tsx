@@ -25,16 +25,9 @@ export default defineComponent({
 
   setup(props) {
     const currentUserStore = useCurrentUserStore()
-    const { currentUser, loading, error } = storeToRefs(currentUserStore)
-    const { getCurrentUser } = currentUserStore
-    const getUser = () => {
-      const id = props.id
-      return getCurrentUser(id)
-    }
+    currentUserStore.getCurrentUser(props.id)
 
-    onMounted(getUser)
-
-    return { currentUser, loading, error, getUser }
+    return { currentUserStore }
   },
 
   render() {
@@ -42,22 +35,22 @@ export default defineComponent({
       <>
         <RouterLink to={'/'}>{localization('goBackToTable')}</RouterLink>
         <p>{`${localization('user')} № ${this.id}`}</p>
-        {this.loading ? (
+        {this.currentUserStore.loading ? (
           <Loading />
-        ) : this.error ? (
+        ) : this.currentUserStore.error ? (
           <>
-            <Error text={this.error} />
-            <button onClick={this.getUser}>{localization('tryAgain')}</button>
+            <Error text={this.currentUserStore.error} />
+            <button onClick={() => this.currentUserStore.getCurrentUser(this.id)}>{localization('tryAgain')}</button>
           </>
         ) : (
           <>
-            {this.currentUser && Object.keys(this.currentUser).length ? (
+            {this.currentUserStore.currentUser && Object.keys(this.currentUserStore.currentUser).length ? (
               <>
-                <p class={styles.name}>{`${localization('name')}: ${this.currentUser.name}`}</p>
-                <p class={styles.email}>{`${localization('email')}: ${this.currentUser.email}`}</p>
-                <p>{`${localization('website')}: ${this.currentUser.website}`}</p>
-                <p>{`${localization('companyName')} : ${this.currentUser.company.name}`}</p>
-                <p>{`${localization('city')}: ${this.currentUser.address.city}`}</p>
+                <p class={styles.name}>{`${localization('name')}: ${this.currentUserStore.currentUser.name}`}</p>
+                <p class={styles.email}>{`${localization('email')}: ${this.currentUserStore.currentUser.email}`}</p>
+                <p>{`${localization('website')}: ${this.currentUserStore.currentUser.website}`}</p>
+                <p>{`${localization('companyName')} : ${this.currentUserStore.currentUser.company.name}`}</p>
+                <p>{`${localization('city')}: ${this.currentUserStore.currentUser.address.city}`}</p>
               </>
             ) : (
               <Error text={localization('infoNotLoaded')} />

@@ -1,10 +1,10 @@
 import { defineComponent } from 'vue'
-import Grid from '@/components/Grid/Grid'
+import Table from '@/components/Table/Table'
 
 export default defineComponent({
   name: 'HomeView',
 
   render() {
-    return <Grid />
+    return <Table />
   }
 })

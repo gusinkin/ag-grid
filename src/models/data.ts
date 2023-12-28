@@ -1,7 +1,43 @@
+import { localization } from '@/app/localization'
+import LinkCellRenderer from '@/components/LinkCellRenderer'
+import type { ValueFormatterParams } from 'ag-grid-community'
+
+export const colDefs = [
+  {
+    field: 'id',
+    headerName: localization('id'),
+    filter: true,
+    floatingFilter: true
+  },
+  {
+    field: 'name',
+    headerName: localization('name'),
+    filter: true,
+    floatingFilter: true,
+    cellRenderer: LinkCellRenderer
+  },
+  {
+    field: 'phone',
+    headerName: localization('phone'),
+    filter: true,
+    floatingFilter: true
+  },
+  {
+    field: 'address.geo.lng',
+    headerName: localization('hemisphere'),
+    filter: true,
+    floatingFilter: true,
+    valueFormatter: (params: ValueFormatterParams) => {
+      const lng = +params.value
+      return lng > 0 ? localization('eastern') : localization('western')
+    }
+  }
+]
+
 export const URL = 'https://jsonplaceholder.typicode.com/users'
 export const mockData = [
   {
-    id: 1,
+    id: '1',
     name: 'Leanne Graham',
     username: 'Bret',
     email: 'Sincere@april.biz',
@@ -24,7 +60,7 @@ export const mockData = [
     }
   },
   {
-    id: 2,
+    id: '2',
     name: 'Ervin Howell',
     username: 'Antonette',
     email: 'Shanna@melissa.tv',
@@ -47,7 +83,7 @@ export const mockData = [
     }
   },
   {
-    id: 3,
+    id: '3',
     name: 'Clementine Bauch',
     username: 'Samantha',
     email: 'Nathan@yesenia.net',
@@ -70,7 +106,7 @@ export const mockData = [
     }
   },
   {
-    id: 4,
+    id: '4',
     name: 'Patricia Lebsack',
     username: 'Karianne',
     email: 'Julianne.OConner@kory.org',
@@ -93,7 +129,7 @@ export const mockData = [
     }
   },
   {
-    id: 5,
+    id: '5',
     name: 'Chelsey Dietrich',
     username: 'Kamren',
     email: 'Lucio_Hettinger@annie.ca',
@@ -116,7 +152,7 @@ export const mockData = [
     }
   },
   {
-    id: 6,
+    id: '6',
     name: 'Mrs. Dennis Schulist',
     username: 'Leopoldo_Corkery',
     email: 'Karley_Dach@jasper.info',
@@ -139,7 +175,7 @@ export const mockData = [
     }
   },
   {
-    id: 7,
+    id: '7',
     name: 'Kurtis Weissnat',
     username: 'Elwyn.Skiles',
     email: 'Telly.Hoeger@billy.biz',
@@ -162,7 +198,7 @@ export const mockData = [
     }
   },
   {
-    id: 8,
+    id: '8',
     name: 'Nicholas Runolfsdottir V',
     username: 'Maxime_Nienow',
     email: 'Sherwood@rosamond.me',
@@ -185,7 +221,7 @@ export const mockData = [
     }
   },
   {
-    id: 9,
+    id: '9',
     name: 'Glenna Reichert',
     username: 'Delphine',
     email: 'Chaim_McDermott@dana.io',
@@ -208,7 +244,7 @@ export const mockData = [
     }
   },
   {
-    id: 10,
+    id: '10',
     name: 'Clementina DuBuque',
     username: 'Moriah.Stanton',
     email: 'Rey.Padberg@karina.biz',
