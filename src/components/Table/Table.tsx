@@ -40,7 +40,7 @@ export default defineComponent({
         ) : (
           <AgGridVue
             //@ts-ignore
-            rowData={this.users}
+            rowData={this.tableStore.users}
             columnDefs={colDefs}
             pagination={true}
             style="width: 100%; height: 600px"
